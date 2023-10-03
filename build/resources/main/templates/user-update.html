@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th = "http://www.w3.org/1999/xhtml">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<form action="#" th:action = "@{/user-update}" th:object = "${user}" method = "post">
+    <label for="id">ID</label>
+    <input readonly type = "number" th:field = "*{id}" id="id" placeholder="ID">
+    <br/>
+    <label for="firstName">firstName:</label>
+    <input type = "text" th:field = "*{firstName}" id="firstName" placeholder="First Name">
+    <br/>
+    <label for="lastName">lastName</label>
+    <input type = "text" th:field = "*{lastName}" id="lastName" placeholder="Last Name">
+    <br/>
+    <label for="address">address</label>
+    <input type = "text" th:field = "*{address}" id="address" placeholder="Address">
+    <br/>
+    <div th:each="phone, iterStat : *{phoneEntries}">
+        <input type="hidden" th:field="*{phoneEntries[__${iterStat.index}__].userID}">
+        <label th:for="${'phoneNumber-' + iterStat.index}">Phone number:</label>
+        <input type="number" th:field="*{phoneEntries[__${iterStat.index}__].phoneNumber}" th:id="${'phoneNumber-' + iterStat.index}" placeholder="Phone:">
+
+        <label th:for="${'phoneComment-' + iterStat.index}">Phone Comment:</label>
+        <input type="text" th:field="*{phoneEntries[__${iterStat.index}__].phoneComment}" th:id="${'phoneComment-' + iterStat.index}" placeholder="Phone Comment">
+        <br/>
+    </div>
+    <input type="submit" value="Update User">
+
+</form>
+
+</body>
+</html>
