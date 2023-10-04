@@ -3,6 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 </head>
 <body>
 <form action="#" th:action = "@{/user-update}" th:object = "${user}" method = "post">
@@ -18,7 +19,7 @@
     <label for="address">address</label>
     <input type = "text" th:field = "*{address}" id="address" placeholder="Address">
     <br/>
-    <div th:each="phone, iterStat : *{phoneEntries}">
+    <div id="phoneEntries" th:each="phone, iterStat : *{phoneEntries}">
         <input type="hidden" th:field="*{phoneEntries[__${iterStat.index}__].userID}">
         <label th:for="${'phoneNumber-' + iterStat.index}">Phone number:</label>
         <input type="number" th:field="*{phoneEntries[__${iterStat.index}__].phoneNumber}" th:id="${'phoneNumber-' + iterStat.index}" placeholder="Phone:">
@@ -28,8 +29,22 @@
         <br/>
     </div>
     <input type="submit" value="Update User">
-
+    <button type="button" id="add-additional-number" onclick="addAdditionalNumber()">Add additional number</button>
 </form>
+<script>
+    let phoneCount = document.querySelectorAll('#phoneEntries').length;
 
+    function addAdditionalNumber() {
+        let html = '';
+        html += '<div id="phoneEntries">';
+        html += '<label for="phoneNumber'+phoneCount+'">Phone number:</label>';
+        html += '<input type="number" id="phoneNumber'+phoneCount+'" name="phoneEntries['+phoneCount+'].phoneNumber" placeholder="Phone:">';
+        html += '<label for="phoneComment'+phoneCount+'">Phone Comment:</label>';
+        html += '<input type="text" id="phoneComment'+phoneCount+'" name="phoneEntries['+phoneCount+'].phoneComment" placeholder="Phone Comment">';
+        html += '<br></div>';
+        $("#phoneEntries").append(html);
+        phoneCount++;
+    }
+</script>
 </body>
 </html>

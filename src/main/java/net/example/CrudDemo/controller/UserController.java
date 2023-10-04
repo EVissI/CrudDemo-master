@@ -85,6 +85,9 @@ public class UserController {
 
     @PostMapping("/user-update")
     public String updateUser(User user){
+        for (int i = 0; i < user.getPhoneEntries().size(); i++){
+            user.getPhoneEntries().get(i).setUserID(user.getPhoneEntries().get(0).getUserID());
+        }
         userService.saveUser(user);
         return "redirect:/users";
     }
