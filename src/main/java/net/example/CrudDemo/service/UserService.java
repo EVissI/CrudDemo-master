@@ -2,6 +2,7 @@ package net.example.CrudDemo.service;
 
 import net.example.CrudDemo.model.User;
 import net.example.CrudDemo.repository.UserRepository;
+import org.bson.types.ObjectId;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -21,7 +22,7 @@ public class UserService {
         return userRepository.findAll();
     }
 
-    public Optional<User> getUserById(Long id) {
+    public Optional<User> getUserById(ObjectId id) {
         return userRepository.findById(id);
     }
 
@@ -29,11 +30,11 @@ public class UserService {
         return userRepository.save(user);
     }
 
-    public Long getUserId(User user) {
+    public ObjectId getUserId(User user) {
         return user.getId();
     }
 
-    public void deleteUser(Long id) {
+    public void deleteUser(ObjectId id) {
         userRepository.deleteById(id);
     }
 }

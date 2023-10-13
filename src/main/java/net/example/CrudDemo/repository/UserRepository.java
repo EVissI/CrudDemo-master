@@ -1,7 +1,8 @@
 package net.example.CrudDemo.repository;
 
 import net.example.CrudDemo.model.User;
-import org.springframework.data.jpa.repository.JpaRepository;
+import org.bson.types.ObjectId;
+import org.springframework.data.mongodb.repository.MongoRepository;
 
-public interface UserRepository extends JpaRepository<User,Long> {
+public interface UserRepository extends MongoRepository<User, ObjectId> {
 }

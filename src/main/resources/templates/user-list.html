@@ -28,8 +28,8 @@
 
                 <td>
                     <ul>
-                        <li th:each="phone : ${user.phoneEntries}">
-                            Number: <span th:text = "${phone.phoneNumber}"></span> (Comment: <span th:text = "${phone.phoneComment}"></span>)
+                        <li th:each="phoneEntry, iterStat: ${user.phoneEntries}">
+                            Number: <span th:text="${phoneEntry.get(0)}"></span> (Comment: <span th:text="${phoneEntry.get(1)}"></span>)
                         </li>
                     </ul>
                 </td>

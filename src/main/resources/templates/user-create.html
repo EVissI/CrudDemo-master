@@ -8,15 +8,37 @@
 <body>
 <form action = "#" th:action = "@{/user-create}" th:object="${user}" method="post">
     <label for="firstName">First Name:</label>
-    <input type="text" th:field ="*{firstName}" id="firstName" placeholder="First Name">
-    </br>
+    <input type="text" th:field ="*{firstName}" id="firstName" placeholder="First Name"> </br>
     <label for="lastName">Last Name:</label>
-    <input type="text" th:field ="*{lastName}" id="lastName" placeholder="Last Name">
-    </br>
+    <input type="text" th:field ="*{lastName}" id="lastName" placeholder="Last Name"> </br>
     <label for="address">Address:</label>
     <input type="text" th:field ="*{address}" id="address" placeholder="Address">
-    <input type="submit" value="Create Phone">
+    </br>
+    <div id = "phoneEntries">
+    <label for='phoneNumber'>Phone Number:</label>
+    <input type="number" th:field="*{phoneEntries[0][0]}" id="phoneNumber" placeholder=" Phone:">
+    </br>
+    <label for='phoneComment'>Phone Comment:</label>
+    <input type="text" th:field="*{phoneEntries[0][1]}" id="phoneComment" placeholder="Comments">
+    </br>
+    </div>
+    <input type="submit" value="Create User">
+    <button type="button" id="add-additional-number" onclick="addAdditionalNumber()">Add additional number</button>
 </form>
+<script>
+    let phoneCount = document.querySelectorAll('#phoneEntries').length;
+
+    function addAdditionalNumber() {
+        let html = '';
+        html += '<div id="phoneEntries">';
+        html += '<label for="phoneNumber'+phoneCount+'">Phone number:</label>';
+        html += '<input type="number" id="phoneNumber'+phoneCount+'" name="phoneEntries['+phoneCount+'][0]" placeholder="Phone:">';
+        html += '<label for="phoneComment'+phoneCount+'">Phone Comment:</label>';
+        html += '<input type="text" id="phoneComment'+phoneCount+'" name="phoneEntries['+phoneCount+'][1]" placeholder="Phone Comment">';
+        html += '<br></div>';
+        $("#phoneEntries").append(html);
+        phoneCount++;
+    }
+</script>
 </body>
 </html>
-

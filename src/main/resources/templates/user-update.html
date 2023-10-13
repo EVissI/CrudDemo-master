@@ -8,7 +8,7 @@
 <body>
 <form action="#" th:action = "@{/user-update}" th:object = "${user}" method = "post">
     <label for="id">ID</label>
-    <input readonly type = "number" th:field = "*{id}" id="id" placeholder="ID">
+    <input readonly type = "text" th:field = "*{id}" id="id" placeholder="ID">
     <br/>
     <label for="firstName">firstName:</label>
     <input type = "text" th:field = "*{firstName}" id="firstName" placeholder="First Name">
@@ -20,12 +20,11 @@
     <input type = "text" th:field = "*{address}" id="address" placeholder="Address">
     <br/>
     <div id="phoneEntries" th:each="phone, iterStat : *{phoneEntries}">
-        <input type="hidden" th:field="*{phoneEntries[__${iterStat.index}__].userID}">
         <label th:for="${'phoneNumber-' + iterStat.index}">Phone number:</label>
-        <input type="number" th:field="*{phoneEntries[__${iterStat.index}__].phoneNumber}" th:id="${'phoneNumber-' + iterStat.index}" placeholder="Phone:">
+        <input type="number" th:field="*{phoneEntries[__${iterStat.index}__][0]}" th:id="${'phoneNumber-' + iterStat.index}" placeholder="Phone:">
 
         <label th:for="${'phoneComment-' + iterStat.index}">Phone Comment:</label>
-        <input type="text" th:field="*{phoneEntries[__${iterStat.index}__].phoneComment}" th:id="${'phoneComment-' + iterStat.index}" placeholder="Phone Comment">
+        <input type="text" th:field="*{phoneEntries[__${iterStat.index}__][1]}" th:id="${'phoneComment-' + iterStat.index}" placeholder="Phone Comment">
         <br/>
     </div>
     <input type="submit" value="Update User">
@@ -38,9 +37,9 @@
         let html = '';
         html += '<div id="phoneEntries">';
         html += '<label for="phoneNumber'+phoneCount+'">Phone number:</label>';
-        html += '<input type="number" id="phoneNumber'+phoneCount+'" name="phoneEntries['+phoneCount+'].phoneNumber" placeholder="Phone:">';
+        html += '<input type="number" id="phoneNumber'+phoneCount+'" name="phoneEntries['+phoneCount+'][0]" placeholder="Phone:">';
         html += '<label for="phoneComment'+phoneCount+'">Phone Comment:</label>';
-        html += '<input type="text" id="phoneComment'+phoneCount+'" name="phoneEntries['+phoneCount+'].phoneComment" placeholder="Phone Comment">';
+        html += '<input type="text" id="phoneComment'+phoneCount+'" name="phoneEntries['+phoneCount+'][1]" placeholder="Phone Comment">';
         html += '<br></div>';
         $("#phoneEntries").append(html);
         phoneCount++;
